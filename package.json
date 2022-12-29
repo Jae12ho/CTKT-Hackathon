@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "ctkt-hackathon",
   "version": "0.1.0",
@@ -25,3 +26,29 @@
     "tailwindcss": "^3.2.4"
   }
 }
+=======
+{
+  "name": "ctkt-hackathon",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "12.3.1",
+    "qrcode.react": "^3.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "eslint": "8.30.0",
+    "eslint-config-next": "13.1.1",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4"
+  }
+}
+>>>>>>> c0d55b23836622bdcbfaaab8677ff2369326ee35

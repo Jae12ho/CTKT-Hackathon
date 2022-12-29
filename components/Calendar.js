@@ -5,7 +5,13 @@ import { handleClientScriptLoad } from "next/script";
 import axios from 'axios';
 
 export default function Calendar() {
-    const [array] = useState([0, 1, 2, 3, 0, 1, 2]);
+    const [array1, setArray1] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [array2, setArray2] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [array3, setArray3] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [array4, setArray4] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [array5, setArray5] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [array6, setArray6] = useState([0, 0, 0, 0, 0, 0, 0]);
+
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth());
     const [isOver, setIsOver] = useState(false);
@@ -24,6 +30,81 @@ export default function Calendar() {
 
     useEffect(() => {
         makeCalendar(year, month);
+
+        const params = {
+            user_id: 1,
+            year: year,
+            month: month + 1
+        };
+        axios.get('https://api.likelionerica.com/hellc/calendar/', { params }).then(res => {
+            console.log(res.data.result);
+            let tmp = [];
+            for(let i = 0; i < FLday.firstDay; i++) {
+                tmp.push(0);
+            }
+            for (let i = 0; i < 7 - FLday.firstDay; i++) {
+                if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
+                    const time = res.data.result[i].total_time;
+                    tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
+                } else {
+                    tmp.push(0);
+                }
+            }
+            setArray1(tmp);
+            console.log(array1)
+
+            tmp = [];
+            for (let i = 7 - FLday.firstDay; i < 14 - FLday.firstDay; i++) {
+                if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
+                    const time = res.data.result[i].total_time;
+                    tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
+                } else {
+                    tmp.push(0);
+                }
+            }
+            setArray2(tmp);
+            console.log(array2)
+
+            tmp = [];
+            for (let i = 14 - FLday.firstDay; i < 21 - FLday.firstDay; i++) {
+                if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
+                    const time = res.data.result[i].total_time;
+                    tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
+                } else {
+                    tmp.push(0);
+                }
+            }
+            setArray3(tmp);
+            console.log(array3)
+
+            tmp = [];
+            for (let i = 21 - FLday.firstDay; i < 28 - FLday.firstDay; i++) {
+                if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
+                    const time = res.data.result[i].total_time;
+                    tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
+                } else {
+                    tmp.push(0);
+                }
+            }
+            setArray4(tmp);
+            console.log(array4)
+
+            tmp = [];
+            for (let i = 28 - FLday.firstDay; i < FLday.lastDay; i++) {
+                if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
+                    const time = res.data.result[i].total_time;
+                    tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
+                } else {
+                    tmp.push(0);
+                }
+            }
+            setArray5(tmp);
+            console.log(array5)
+
+            
+            tmp = [];
+            
+        });
         
     }, [year, month]);
 
@@ -32,6 +113,8 @@ export default function Calendar() {
         
         const firstDay = new Date(date.setDate(1)).getDay();
         const lastDay = new Date(year, month + 1, 0).getDate();
+
+        console.log(firstDay, lastDay)
 
         setFLday({firstDay, lastDay});
         setIsOver(firstDay === 5 && lastDay === 31 || firstDay >= 6 && lastDay >= 30);
@@ -57,13 +140,6 @@ export default function Calendar() {
 
     const handleDetail = (index, day) => {
         if (day) {
-            // fetch('https://api.likelionerica.com/hellc/calendar/?' + new URLSearchParams({
-            //     user_id: 1,
-            //     year: year,
-            //     month: month
-            // })).then(res => {
-            //     console.log(res.json());
-            // })
             const params = {
                 user_id: 1,
                 year: year,
@@ -82,7 +158,7 @@ export default function Calendar() {
 
                 }
                 
-            })
+            });
 
             setIsDetail(true);
         }
@@ -104,33 +180,33 @@ export default function Calendar() {
                 </div>
                 <div>
                     <div className="flex w-[327px] justify-between p-1">
-                        {array.map((n, index) => (
+                        {array1.map((n, index) => (
                             <DayBox key={index} n={n} day={(index < FLday.firstDay ? "" : index - FLday.firstDay + 1)} handleDetail={handleDetail} index={index} />
                         ))}
                     </div>
                     <div className="flex w-[327px] justify-between p-1">
-                        {array.map((n, index) => (
+                        {array2.map((n, index) => (
                             <DayBox key={index} n={n} day={index + 8 - FLday.firstDay} handleDetail={handleDetail} index={index} />
                         ))}
                     </div>
                     <div className="flex w-[327px] justify-between p-1">
-                        {array.map((n, index) => (
+                        {array3.map((n, index) => (
                             <DayBox key={index} n={n} day={index + 15 - FLday.firstDay} handleDetail={handleDetail} index={index} />
                         ))}
                     </div>
                     <div className="flex w-[327px] justify-between p-1">
-                        {array.map((n, index) => (
+                        {array4.map((n, index) => (
                             <DayBox key={index} n={n} day={index + 22 - FLday.firstDay} handleDetail={handleDetail} index={index} />
                         ))}
                     </div>
                     <div className="flex w-[327px] justify-between p-1">
-                        {array.map((n, index) => (
+                        {array5.map((n, index) => (
                             <DayBox key={index} n={n} day={index + 29 - FLday.firstDay <= FLday.lastDay ? index + 29 - FLday.firstDay : ""} handleDetail={handleDetail} index={index} />
                         ))}
                     </div>
                     {isOver && (
                     <div className="flex w-[327px] justify-between p-1">
-                        {array.map((n, index) => (
+                        {array6.map((n, index) => (
                             <DayBox key={index} n={n} day={index + 36 - FLday.firstDay <= FLday.lastDay ? index + 36 - FLday.firstDay : ""} handleDetail={handleDetail} index={index} />
                         ))}
                     </div>
