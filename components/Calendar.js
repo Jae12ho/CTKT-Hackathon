@@ -9,8 +9,8 @@ export default function Calendar() {
     const [array2, setArray2] = useState([0, 0, 0, 0, 0, 0, 0]);
     const [array3, setArray3] = useState([0, 0, 0, 0, 0, 0, 0]);
     const [array4, setArray4] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [array5, setArray5] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [array6, setArray6] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [array5, setArray5] = useState([0, 0, 0, 0, 0, 3, 0]);
+    const [array6, setArray6] = useState([0, 0, 0, 0, 0, 3, 0]);
 
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth());
@@ -27,6 +27,18 @@ export default function Calendar() {
         firstDay: '',
         lastDay: '',
     });
+
+    const makeCalendar = (year, month) => {
+        const date = new Date(year, month, 1);
+        
+        const firstDay = new Date(date.setDate(1)).getDay();
+        const lastDay = new Date(year, month + 1, 0).getDate();
+
+        console.log(firstDay, lastDay)
+
+        setFLday({firstDay, lastDay});
+        setIsOver(firstDay === 5 && lastDay === 31 || firstDay >= 6 && lastDay >= 30);
+    }
 
     useEffect(() => {
         makeCalendar(year, month);
@@ -90,35 +102,22 @@ export default function Calendar() {
             console.log(array4)
 
             tmp = [];
-            for (let i = 28 - FLday.firstDay; i < FLday.lastDay; i++) {
-                if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
-                    const time = res.data.result[i].total_time;
-                    tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
-                } else {
-                    tmp.push(0);
-                }
-            }
-            setArray5(tmp);
-            console.log(array5)
+            // for (let i = 28 - FLday.firstDay; i < FLday.lastDay; i++) {
+            //     if (!(res.data.result[i].constructor === Object && Object.keys(res.data.result[i]).length === 0)) {
+            //         const time = res.data.result[i].total_time;
+            //         tmp.push(time < 10 ? 1 : time < 20 ? 2 : 3);
+            //     } else {
+            //         tmp.push(0);
+            //     }
+            // }
+            // setArray5(tmp);
+            // console.log(array5)
 
-            
-            tmp = [];
+            // tmp = [];
             
         });
         
     }, [year, month]);
-
-    const makeCalendar = (year, month) => {
-        const date = new Date(year, month, 1);
-        
-        const firstDay = new Date(date.setDate(1)).getDay();
-        const lastDay = new Date(year, month + 1, 0).getDate();
-
-        console.log(firstDay, lastDay)
-
-        setFLday({firstDay, lastDay});
-        setIsOver(firstDay === 5 && lastDay === 31 || firstDay >= 6 && lastDay >= 30);
-    }
 
     const prevMonth = () => {
         if (month > 0) {
@@ -139,6 +138,7 @@ export default function Calendar() {
     }
 
     const handleDetail = (index, day) => {
+        console.log('cldickl')
         if (day) {
             const params = {
                 user_id: 1,

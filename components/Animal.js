@@ -182,7 +182,7 @@ export default function Animal() {
     // },)
 
     return (
-        <>
+        <div className="w-full">
             <div className="animal-container">
                 <div className="animal-content-container">
                     <img src="/images/fence2.png" className="fence" />
@@ -197,6 +197,6 @@ export default function Animal() {
                 </div>
                 <div class="animal-content-container-shadow"></div>
             </div>
-        </>
+        </div>
     )
 }

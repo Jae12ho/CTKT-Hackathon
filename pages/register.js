@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Register() {
 
@@ -14,12 +15,12 @@ export default function Register() {
                     <div className="w-full flex justify-between">
                         <h3 className="font-medium text-[12px] pl-2">Password</h3>
                     </div>
-                    <input className="font-medium text-[12px] pl-3 rounded-[17px] w-full h-[34px] drop-shadow-[0_0_4px_rgba(0,0,0,0.25)] mt-1 mb-2 outline-none" placeholder="비밀번호" />
+                    <input type="password" className="font-medium text-[12px] pl-3 rounded-[17px] w-full h-[34px] drop-shadow-[0_0_4px_rgba(0,0,0,0.25)] mt-1 mb-2 outline-none" placeholder="비밀번호" />
                     <div className="w-full flex justify-between">
                         <h3 className="font-medium text-[12px] pl-2">Confirm Password</h3>
                     </div>
-                    <input className="font-medium text-[12px] pl-3 rounded-[17px] w-full h-[34px] drop-shadow-[0_0_4px_rgba(0,0,0,0.25)] mt-1 mb-2 outline-none" placeholder="비밀번호" />
-                    <button className="w-full text-[12px] font-bold rounded-[17px] h-[34px] bg-[#FFC16C] shadow-[0_0_4px_rgba(0,0,0,0.25)] my-8">회원가입</button>
+                    <input type="password" className="font-medium text-[12px] pl-3 rounded-[17px] w-full h-[34px] drop-shadow-[0_0_4px_rgba(0,0,0,0.25)] mt-1 mb-2 outline-none" placeholder="비밀번호" />
+                    <Link href="/login"><button className="w-full text-[12px] font-bold rounded-[17px] h-[34px] bg-[#FFC16C] shadow-[0_0_4px_rgba(0,0,0,0.25)] my-8">회원가입</button></Link>
                     <p className="text-[14px] font-extrabold">Or</p>
                     <div className="flex justify-between py-6">
                         <button>
